@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import math
+from numpy.core.function_base import linspace
 from scipy.optimize import curve_fit
 from scipy.signal import find_peaks, peak_widths
 import pathlib
@@ -73,30 +74,32 @@ for i in range(len(peak_list)):
 
 print("Peak positions and std. dev. (degrees):",peak_position) #entry n corresponds to peak n (n in N0), contains x2theta and std.dev. of peak, respectively. 
 
+sum_of_sq=[]
+for i in range(0,max_laue_sum_of_sq+1):
+    for j in range(0,max_laue_sum_of_sq+1):
+        for k in range(0,max_laue_sum_of_sq+1):
+            if i**2+j**2+k**2 not in sum_of_sq and i**2+j**2+k**2<max_laue_sum_of_sq and i**2+j**2+k**2!=0:
+                sum_of_sq.append(i**2+j**2+k**2)
+sum_of_sq.sort()
+
 cell_parameter_possible=[]
 for i in range(len(peak_position)):
     cell_parameter_possible.append([])
-    for j in range(1,max_laue_sum_of_sq+1):
-        cell_parameter_possible[i].append(math.sqrt(j*wavelength**2 /(4*math.sin(peak_position[i][0]*math.pi/180)**2)))
+    for j in range(len(sum_of_sq)):
+        cell_parameter_possible[i].append(math.sqrt(sum_of_sq[j]*wavelength**2 /(4*math.sin(peak_position[i][0]*math.pi/180)**2)))
 
 cell_parameter_possible.sort(reverse=True)
 for i in range(len(peak_position)):
-    for j in range(max_laue_sum_of_sq):
+    for j in range(len(sum_of_sq)):
         if cell_parameter_possible[i][j]/cell_parameter_possible[0][0]<0.9:
             cell_parameter_possible[i][j]=0
-        if cell_parameter_possible[i][j]/cell_parameter_possible[len(peak_position)-1][max_laue_sum_of_sq-1]>1.1:
+        if cell_parameter_possible[i][j]/cell_parameter_possible[len(peak_position)-1][len(sum_of_sq)-1]>1.1:
             cell_parameter_possible[i][j]=0
-
-def trunc(values, decs=0):
-    return np.trunc(values*10**decs)/(10**decs)
-
-res = list(set.intersection(*map(set, list(trunc(np.array(cell_parameter_possible), decs=1)))))
-res = [i for i in res if i != 0]
 
 cell_parameter_neat=cell_parameter_possible
 for i in range(len(peak_position)):
     cell_parameter_neat[i] = [j for j in cell_parameter_possible[i] if j != 0]
 
-print("Most likely approximate cell lengths (A^0):",res)
 print("Possible cell lengths (A^0):",cell_parameter_neat)
+
 plt.show()
