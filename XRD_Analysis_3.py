@@ -17,7 +17,7 @@ cutoff_2xtheta = 12 #degrees
 peak_prominence = 20 #higher peak prominence > small peaks are ignored
 
 wavelength = 0.71073 #A^0
-laue_indices_sum_of_sq=[2,3,4,6,8,11,12,16,19,20] #when first running program, leave empty. determine the values by hand via 4sin(θ)^2/λ^2=l/a^2 and rerun
+laue_indices_sum_of_sq = [2,3,4,6,8,11,12,16,19,20] #when first running program, leave empty. determine the values by hand via 4sin(θ)^2/λ^2=l/a^2 and rerun
 
 #
 
