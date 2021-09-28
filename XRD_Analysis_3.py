@@ -111,6 +111,8 @@ cell_volume_variance_avg=sum(cell_volume_variance)/(len(peak_position)**2)
 print("4sin(θ)^2/λ^2:",factor_list)
 print("-----")
 if firstrun==False:
+    print("Sum of sq. of Laue indices:",laue_indices_sum_of_sq)
+    print("-----")
     print("Cell parameter (A^0):",cell_parameter_avg)
     print("Cell parameter std. dev. (A^0):",math.sqrt(cell_parameter_variance_avg))
     print("-----")
