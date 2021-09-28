@@ -23,6 +23,4 @@ plot of xrd data including gaussian fit and maxima of fit
 
 all (2x) diffraction angles + standard deviations for the peaks (calculated by single gaussian function fitting over each individual peak)
 
-the most likely cell parameters (for chosen max_laue_sum_of_sq)
-
-all possible cell parameters (for chosen max_laue_sum_of_sq)
+possible cell parameters (for chosen max_laue_sum_of_sq)
