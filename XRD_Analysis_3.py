@@ -77,6 +77,8 @@ for i in range(len(peak_list)):
     peak_position.append([parameters[1],np.sqrt(np.diag(info))[1]])
 
 print("-----")
+print(filename,"Analysis")
+print("-----")
 print("Peak positions and std. dev. (degrees):",peak_position) #entry n corresponds to peak n (n in N0), contains x2theta and std.dev. of peak, respectively. 
 print("-----")
 
