@@ -1,7 +1,6 @@
-# XRD_Analysis (not finalized)
+# XRD Powder Diffraction Pattern Analysis Program (Cubic Crystal Sytems)
 
-data file must be in the same folder as the program
-!note the program assumes a cubic crystal system
+the data file must be in the same folder as the program
 
 
 settings:
@@ -14,7 +13,7 @@ peak_prominence: required prominence of peaks (high value means only tallest pea
 
 wavelength: wavelength of x-rays
 
-max_laue_sum_of_sq: maximal sum of squares of laue indices used in analysis of the data
+laue_indices_sum_of_sq: list of sum of squares of laue indices used in analysis of the data
 
 
 output:
@@ -23,4 +22,6 @@ plot of xrd data including gaussian fit and maxima of fit
 
 all (2x) diffraction angles + standard deviations for the peaks (calculated by single gaussian function fitting over each individual peak)
 
-possible cell parameters (for chosen max_laue_sum_of_sq)
+the values of 4sin(θ)^2/λ^2, used to determine the laue indices sum of squares 
+
+the cell parameter and volume, including standard deviations
