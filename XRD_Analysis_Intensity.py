@@ -21,7 +21,6 @@ filename = "cu2o_A-X_Y.txt" #note: file must be in the same folder as the progra
 cutoff_2xtheta = 12 #degrees
 peak_prominence = 20 #higher peak prominence > small peaks are ignored
 
-wavelength = 0.71073 #A^0
 #
 
 #import data
