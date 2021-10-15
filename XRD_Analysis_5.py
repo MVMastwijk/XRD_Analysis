@@ -1,5 +1,5 @@
 #XRD Powder Diffraction Analysis Program (for cubic crystal systems)
-#Author = MV Mastwijk, 28-SEP-2021
+#Author = MV Mastwijk, 15-OCT-2021
 #See below for the settings
 
 from sys import path_importer_cache
@@ -22,7 +22,6 @@ cutoff_2xtheta = 12 #degrees
 peak_prominence = 20 #higher peak prominence > small peaks are ignored
 
 wavelength = 0.71073 #A^0
-laue_indices_sum_of_sq = [2,3,4,6,8,11,12,16,19,20] #when first running program, leave empty. determine the values by hand via 4sin(θ)^2/λ^2=l/a^2 and rerun
 #
 
 #import data
@@ -117,51 +116,6 @@ for i in range(len(peak_list)):
 print("-----")
 print(filename,"Analysis")
 print("-----")
-print("Peak positions and std. dev. (degrees):",peak_position) #entry n corresponds to peak n (n in N0), contains x2theta and std.dev. of peak, respectively. 
-print("-----")
-
-factor_list=[]
-for i in range(len(peak_position)):
-    factor_list.append((4*math.sin(0.5*peak_position[i][0]*math.pi/180)**2)/wavelength**2)
-
-cell_parameter=[]
-cell_parameter_variance=[]
-cell_volume=[]
-cell_volume_variance=[]
-firstrun=False
-if laue_indices_sum_of_sq==[]:
-    for i in range(len(peak_position)):
-        laue_indices_sum_of_sq.append(1)
-        firstrun=True
-
-for i in range(len(peak_position)):
-    cell_ai=1/math.sqrt(factor_list[i]/laue_indices_sum_of_sq[i])
-    cell_parameter.append(cell_ai)
-    cell_parameter_variance.append((cell_ai**2)/(math.tan(0.5*peak_position[i][0]*math.pi/180)**2)*(0.5*peak_position[i][1]*math.pi/180)**2)
-    cell_volume.append(cell_ai**3)
-    cell_volume_variance.append(9*cell_ai**4*cell_parameter_variance[i])
-
-cell_parameter_avg=sum(cell_parameter)/len(peak_position)
-cell_parameter_variance_avg=sum(cell_parameter_variance)/(len(peak_position)**2)
-
-cell_volume_avg=sum(cell_volume)/len(peak_position)
-cell_volume_variance_avg=sum(cell_volume_variance)/(len(peak_position)**2)
-
-
-print("4sin(θ)^2/λ^2:",factor_list)
-print("-----")
-if firstrun==False:
-    print("Sum of sq. of Laue indices:",laue_indices_sum_of_sq)
-    print("-----")
-    print("Cell parameter (A^0):",cell_parameter_avg)
-    print("Cell parameter std. dev. (A^0):",math.sqrt(cell_parameter_variance_avg))
-    print("-----")
-    print("Cell volume (A^0^3):",cell_volume_avg)
-    print("Cell volume std. dev. (A^0^3):",math.sqrt(cell_volume_variance_avg))
-else:
-    print("Determine the sum of squares l of Laue indices belonging to each peak by 4sin(θ)^2/λ^2=l/a^2, put these in the settings in ascending order and rerun.")
-print("-----")
-
 
 def abs_1Voigt(x, ampG1, cen, sigmaG1, ampL1, widL1):
     return abs((ampG1*(1/(sigmaG1*(np.sqrt(2*np.pi))))*(np.exp(-((x-cen)**2)/((2*sigmaG1)**2)))) +\
